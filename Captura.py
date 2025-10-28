@@ -8,32 +8,33 @@ video_capture = cv2.VideoCapture(0)
 def detect_bounding_box(vid):
     countPerson = 0
     gray_image = cv2.cvtColor(vid, cv2.COLOR_BGR2GRAY)
-    faces = face_classifier.detectMultiScale(gray_image, 1.1, 5, minSize=(40, 40))
+    faces = face_classifier.detectMultiScale(gray_image, 1.1, 6, minSize=(80, 80))
     for (x, y, w, h) in faces:
         countPerson += 1
         cv2.rectangle(vid, (x, y), (x + w, y + h), (0, 255, 0), 4)
     return faces , countPerson
 
-while True:
+def Captura():
+    while True:
 
-    result, video_frame = video_capture.read()  
-    if result is False:
-        break  
+        result, video_frame = video_capture.read()  
+        if result is False:
+            break  
 
-    faces, countPerson = detect_bounding_box(
-        video_frame
-    ) 
-    video_frame = cv2.flip(video_frame, 1)
-    text = "Cantidad de personas: " + str(countPerson)
-    cv2.putText(video_frame, text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 4)
+        faces, countPerson = detect_bounding_box(
+            video_frame
+        ) 
+        video_frame = cv2.flip(video_frame, 1)
+        text = "Cantidad de personas: " + str(countPerson)
+        cv2.putText(video_frame, text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 4)
 
 
-    cv2.imshow(
-        "Deteccion De Personas", video_frame
-    )  
+        cv2.imshow(
+            "Deteccion De Personas", video_frame
+        )  
 
-    if cv2.waitKey(1) & 0xFF == ord("q"):
-        break
+        if cv2.waitKey(1) & 0xFF == ord("q"):
+            break
 
 video_capture.release()
 cv2.destroyAllWindows()
