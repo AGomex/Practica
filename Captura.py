@@ -25,7 +25,7 @@ def Captura():
             video_frame
         ) 
         video_frame = cv2.flip(video_frame, 1)
-        text = "Cantidad de personas: " + str(countPerson)
+        text = "Conteo de personas en el laboratorio: " + str(countPerson)
         cv2.putText(video_frame, text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 4)
 
 
